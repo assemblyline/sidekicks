@@ -5,12 +5,7 @@ require 'sidekicks/elb'
 elb = Sidekicks::ELB.new
 elb.register
 
-Signal.trap('TERM') do
-  elb.deregister
-  exit 0
-end
-
-Signal.trap('INT') do
+Signal.trap('EXIT') do
   elb.deregister
   exit 0
 end
