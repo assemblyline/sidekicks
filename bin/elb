@@ -1,0 +1,20 @@
+#!/usr/bin/env ruby
+$LOAD_PATH.unshift 'lib'
+require 'sidekicks/elb'
+
+elb = Sidekicks::ELB.new
+elb.register
+
+Signal.trap('TERM') do
+  elb.deregister
+  exit 0
+end
+
+Signal.trap('INT') do
+  elb.deregister
+  exit 0
+end
+
+loop do
+  sleep 1
+end
