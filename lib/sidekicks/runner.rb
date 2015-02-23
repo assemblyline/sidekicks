@@ -14,10 +14,10 @@ module Sidekicks
         exit 0
       end
 
-      sidekick.startup
+      startup
 
       loop do
-        sidekick.work if defined?(sidekick.work)
+        work
         sleep interval || 1
       end
     end
@@ -30,6 +30,14 @@ module Sidekicks
 
     def interval
       sidekick.interval if defined?(sidekick.interval)
+    end
+
+    def startup
+      sidekick.startup if defined?(sidekick.startup)
+    end
+
+    def work
+      sidekick.work if defined?(sidekick.work)
     end
   end
 end

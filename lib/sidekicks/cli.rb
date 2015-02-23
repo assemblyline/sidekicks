@@ -25,6 +25,7 @@ module Sidekicks
     def supported_commands
       {
         'elb' => ->() { ELB },
+        'vulcand' => ->() { Vulcand },
       }
     end
 

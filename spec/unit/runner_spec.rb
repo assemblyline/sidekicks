@@ -60,6 +60,16 @@ describe Sidekicks::Runner do
     end
   end
 
+  context 'when the sidekick does not define startup' do
+    let(:testkick) { Sidekicks::NoStartupKick }
+
+    it 'runs the methods in the expected order' do
+      output = run_for(0.1, testkick)
+      expect(output.first).to eq "I am working\n"
+      expect(output.last).to eq "I have shutdown\n"
+    end
+  end
+
   def run_for(time, testkick)
     rout, wout = IO.pipe
 
@@ -123,6 +133,25 @@ module Sidekicks
   class NoIntervalKick
     def startup
       log 'I am starting up'
+    end
+
+    def work
+      log 'I am working'
+    end
+
+    def shutdown
+      log 'I have shutdown'
+    end
+
+    def log(msg)
+      puts msg
+      STDOUT.flush
+    end
+  end
+
+  class NoStartupKick
+    def interval
+      0.1
     end
 
     def work

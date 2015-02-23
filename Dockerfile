@@ -1,8 +1,6 @@
 FROM assemblyline/alpine-ruby
 
-# We can't build native extensions on alpine so we install a packaged nokogiri
 RUN apk-install ruby-nokogiri
-
 WORKDIR /usr/src/sidekicks
 
 # Install Ruby Deps
