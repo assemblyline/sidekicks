@@ -4,8 +4,7 @@ require 'open-uri'
 module Sidekicks
   class ELB
 
-    def initialize(elb = nil)
-      @elb        = elb
+    def initialize
       self.name   = ENV.fetch 'AWS_ELB_NAME'
       self.region = ENV.fetch 'AWS_REGION'
       self.key    = ENV.fetch 'AWS_ACCESS_KEY'
