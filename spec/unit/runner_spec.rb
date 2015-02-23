@@ -106,6 +106,7 @@ module Sidekicks
     end
 
     def log(msg)
+      sleep 0.01
       puts msg
       STDOUT.flush
     end
@@ -125,6 +126,7 @@ module Sidekicks
     end
 
     def log(msg)
+      sleep 0.01
       puts msg
       STDOUT.flush
     end
@@ -144,6 +146,7 @@ module Sidekicks
     end
 
     def log(msg)
+      sleep 0.01
       puts msg
       STDOUT.flush
     end
@@ -163,6 +166,7 @@ module Sidekicks
     end
 
     def log(msg)
+      sleep 0.01
       puts msg
       STDOUT.flush
     end

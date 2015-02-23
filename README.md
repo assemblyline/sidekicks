@@ -16,9 +16,7 @@ It finds the port exposed in the given docker container and sets up a server in 
 
 ### Config
 
-The ELB sidekick takes its configuration from the environment.
-
-The id of the current instance is looked up dynamically using [ec2 instance metadata](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html)
+The Vulcand sidekick takes its configuration from the environment.
 
 |ENV Var           | Description                                              |
 |------------------|----------------------------------------------------------|
