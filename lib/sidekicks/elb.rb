@@ -3,21 +3,21 @@ require 'open-uri'
 
 module Sidekicks
   class ELB
-    def initialize
+
+    def initialize(elb = nil)
+      @elb        = elb
       self.name   = ENV.fetch 'AWS_ELB_NAME'
       self.region = ENV.fetch 'AWS_REGION'
       self.key    = ENV.fetch 'AWS_ACCESS_KEY'
       self.secret = ENV.fetch 'AWS_SECRET_KEY'
     end
 
-    def register
-      return if elb.instances.include? instance
+    def startup
       log "registering instance #{instance} with elb #{elb.id}"
       elb.register_instances [instance]
     end
 
-    def deregister
-      return unless elb.instances.include? instance
+    def shutdown
       log "deregistering instance #{instance} with elb #{elb.id}"
       elb.deregister_instances [instance]
     end
@@ -29,7 +29,7 @@ module Sidekicks
     private
 
     def elb
-      @_elb ||= Fog::AWS::ELB.new(
+      @elb ||= Fog::AWS::ELB.new(
         aws_access_key_id: key,
         aws_secret_access_key: secret,
         region: region,
@@ -42,6 +42,7 @@ module Sidekicks
 
     def log(message)
       STDOUT.puts message
+      STDOUT.flush
     end
   end
 end

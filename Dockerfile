@@ -1,7 +1,5 @@
 FROM assemblyline/alpine-ruby
 
-ENV PATH /usr/src/sidekicks/bin:$PATH
-
 # We can't build native extensions on alpine so we install a packaged nokogiri
 RUN apk-install ruby-nokogiri
 
@@ -16,3 +14,5 @@ COPY . /usr/src/sidekicks
 
 # Run the unit tests
 RUN bundle exec rake
+
+ENTRYPOINT ["/usr/src/sidekicks/bin/sidekick"]

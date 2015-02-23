@@ -14,20 +14,20 @@ describe Sidekicks::ELB do
     elb
   end
 
-  describe '#register' do
+  describe '#startup' do
     it 'registers the instance with the elb' do
-      subject.register
+      subject.startup
       expect(elb.reload.instances).to include server.id
     end
   end
 
-  describe '#deregister' do
+  describe '#shutdown' do
     before do
-      subject.register
+      subject.startup
     end
 
     it 'registers the instance with the elb' do
-      subject.deregister
+      subject.shutdown
       expect(elb.reload.instances).to_not include server.id
     end
   end

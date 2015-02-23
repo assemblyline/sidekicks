@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+
+require 'pathname'
+ENV['BUNDLE_GEMFILE'] ||= File.expand_path('../../Gemfile', Pathname.new(__FILE__).realpath)
+
+require 'bundler/setup'
+
+$LOAD_PATH.unshift File.expand_path('../../lib', Pathname.new(__FILE__).realpath)
+require 'sidekicks/cli'
+
+Sidekicks::Cli.run(ARGV[0])
