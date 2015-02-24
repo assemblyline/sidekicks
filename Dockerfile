@@ -1,6 +1,5 @@
-FROM assemblyline/alpine-ruby
+FROM quay.io/assemblyline/ruby:2.1.5
 
-RUN apk-install ruby-nokogiri
 WORKDIR /usr/src/sidekicks
 
 # Install Ruby Deps
