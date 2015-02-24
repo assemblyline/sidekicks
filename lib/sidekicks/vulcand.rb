@@ -1,5 +1,6 @@
 require 'docker'
 require 'etcd'
+require 'sidekicks/logger'
 
 module Sidekicks
   class Vulcand
@@ -16,10 +17,13 @@ module Sidekicks
     end
 
     def work
-      etcd.set("/vulcand/backends/#{backend}/servers/#{container_name}", value: server_config, ttl: 5)
+      conf = server_config
+      Logger.log "upserting #{container_name} in the backend: #{backend} with config: #{conf}"
+      etcd.set("/vulcand/backends/#{backend}/servers/#{container_name}", value: conf, ttl: 5)
     end
 
     def shutdown
+      Logger.log "removing #{container_name} from the backend: #{backend}"
       etcd.delete("/vulcand/backends/#{backend}/servers/#{container_name}")
     end
 

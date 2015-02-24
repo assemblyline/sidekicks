@@ -1,5 +1,6 @@
 require 'fog'
 require 'open-uri'
+require 'sidekicks/logger'
 
 module Sidekicks
   class ELB
@@ -12,12 +13,12 @@ module Sidekicks
     end
 
     def startup
-      log "registering instance #{instance} with elb #{elb.id}"
+      Logger.log "registering instance #{instance} with elb #{elb.id}"
       elb.register_instances [instance]
     end
 
     def shutdown
-      log "deregistering instance #{instance} with elb #{elb.id}"
+      Logger.log "deregistering instance #{instance} with elb #{elb.id}"
       elb.deregister_instances [instance]
     end
 
@@ -37,11 +38,6 @@ module Sidekicks
 
     def instance
       @_instance ||= OpenURI.open_uri('http://169.254.169.254/latest/meta-data/instance-id').read
-    end
-
-    def log(message)
-      STDOUT.puts message
-      STDOUT.flush
     end
   end
 end
