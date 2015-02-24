@@ -8,10 +8,12 @@ describe Sidekicks::Vulcand do
   before do
     allow(Etcd).to receive(:client).and_return(mock_etcd)
     ENV['HOSTNAME']        = '10.234.17.44'
-    ENV['DOCKER_HOST']     = 'https://192.168.59.103:2376'
     ENV['CONTAINER_NAME']  = 'foo'
     ENV['CONTAINER_PORT']  = '3000'
     ENV['VULCAND_BACKEND'] = 'awesome'
+    ENV['DOCKER_CERT_PATH'] = nil
+    ENV['DOCKER_TLS_VERIFY'] = nil
+    ENV['DOCKER_HOST'] = nil
   end
 
   describe '#interval' do
@@ -24,7 +26,7 @@ describe Sidekicks::Vulcand do
     it 'upserts the server with a ttl of 5' do
       expect(mock_etcd).to receive(:set).with(
         '/vulcand/backends/awesome/servers/foo',
-        value: '{"URL": "http://10.234.17.44:49155"}',
+        value: '{"URL": "http://10.234.17.44:49153"}',
         ttl: 5,
       )
       subject.work

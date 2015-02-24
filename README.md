@@ -22,8 +22,12 @@ The Vulcand sidekick takes its configuration from the environment.
 |------------------|----------------------------------------------------------|
 |`HOSTNAME`        | The hostname or ip of the current instance               |
 |`CONTAINER_NAME`  | The name of the container to upsert                      |
-|`CONTAINER_PORT`  | The container port to lookup exposed port by             |
+|`CONTAINER_PORT`  | The container port to lookup the exposed port by         |
 |`VULCAND_BACKEND` | The name of the Vulcand backend to upsert this server in |
+
+### Limitations
+
+* It expects to connect to the docker remote api over the docker gateway [see](https://coreos.com/docs/launching-containers/building/customizing-docker/) for coreos instuctions
 
 
 ## ELB

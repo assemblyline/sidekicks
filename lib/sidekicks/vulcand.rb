@@ -5,10 +5,10 @@ module Sidekicks
   class Vulcand
     def initialize
       self.hostname = ENV.fetch('HOSTNAME')
-      self.docker_host = ENV.fetch('DOCKER_HOST')
       self.container_name = ENV.fetch('CONTAINER_NAME')
       self.container_port = ENV.fetch('CONTAINER_PORT')
       self.backend = ENV.fetch('VULCAND_BACKEND')
+      Docker.url = 'tcp://172.17.42.1:2375'
     end
 
     def interval
@@ -42,15 +42,11 @@ module Sidekicks
     end
 
     def container
-      @_container ||= Docker::Container.get(container_name, docker_connection)
-    end
-
-    def docker_connection
-      @_docker_connection ||= Docker::Connection.new(docker_host, {})
+      @_container ||= Docker::Container.get(container_name)
     end
 
     def etcd
-      @_etcd ||= Etcd.client
+      @_etcd ||= Etcd.client(host: '172.17.42.1')
     end
   end
 end

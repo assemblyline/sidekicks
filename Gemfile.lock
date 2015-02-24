@@ -145,9 +145,7 @@ PLATFORMS
 DEPENDENCIES
   docker-api
   etcd
-  excon (= 0.42.0)
   fog
-  nokogiri (= 1.6.5)
   rake
   reevoocop
   rspec
