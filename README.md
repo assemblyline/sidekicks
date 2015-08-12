@@ -35,8 +35,8 @@ The Vulcand sidekick takes its configuration from the environment.
 The ELB sidekick is designed to register an instance with an Amazon Web Services
 Elastic Load Balancer.
 
-It registers the current instance with the named ELB on start, if the sidekick
-receives an INT or TERM signal it will deregister the instance.
+It registers the current instance with the named ELB or the tagged ELB(s) on start, 
+if the sidekick receives an INT or TERM signal it will deregister the instance.
 
 
 ### Usage
@@ -49,12 +49,13 @@ The ELB sidekick takes its configuration from the environment.
 
 The id of the current instance is looked up dynamically using [ec2 instance metadata](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html)
 
-|ENV Var          | Description                          |
-|-----------------|--------------------------------------|
-|`AWS_ELB_NAME`   | The name of the ELB to register with |
-|`AWS_REGION`     | The name of the AWS Region           |
-|`AWS_ACCESS_KEY` | The AWS Access Key to use            |
-|`AWS_SECRET_KEY` | The AWS Secret Key to use            |
+|ENV Var          | Description                            | Optional |
+|-----------------|----------------------------------------|----------|
+|`AWS_ELB_NAME`   | The name of the ELB to register with   | true     |
+|`AWS_ELB_TAG`    | The tag of the ELB(s) to register with | true     |
+|`AWS_REGION`     | The name of the AWS Region             |          |
+|`AWS_ACCESS_KEY` | The AWS Access Key to use              |          |
+|`AWS_SECRET_KEY` | The AWS Secret Key to use              |          |
 
 ### Limitations
 

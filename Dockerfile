@@ -1,4 +1,4 @@
-FROM quay.io/assemblyline/ruby:2.1.5
+FROM quay.io/assemblyline/ruby:2.1.6
 
 WORKDIR /usr/src/sidekicks
 

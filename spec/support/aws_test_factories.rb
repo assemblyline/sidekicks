@@ -53,10 +53,22 @@ class ELBFactory
     self.credentials = credentials
   end
 
+  def get_elbs_with_tag(tag)
+    connection.load_balancers.select { |elb| elb.tags[tag] }
+  end
+
+  def tagged_elbs(tag, n = 2)
+    n.times do |i|
+      availability_zones = %w(eu-west-1a eu-west-1b eu-west-1c)
+      name = "randomelb-#{tag}-#{i}"
+      connection.create_load_balancer(availability_zones, name, listeners)
+      connection.load_balancers.get(name).add_tags(tag => 'foo')
+    end
+  end
+
   def setup_elb(name)
     setup_env_vars(name)
     availability_zones = %w(eu-west-1a eu-west-1b eu-west-1c)
-    listeners = [{ 'Protocol' => 'HTTP', 'LoadBalancerPort' => 80, 'InstancePort' => 80, 'InstanceProtocol' => 'HTTP' }]
     connection.create_load_balancer(availability_zones, name, listeners)
     connection.load_balancers.get(name)
   end
@@ -66,6 +78,10 @@ class ELBFactory
   attr_accessor :credentials
 
   private
+
+  def listeners
+    [{ 'Protocol' => 'HTTP', 'LoadBalancerPort' => 80, 'InstancePort' => 80, 'InstanceProtocol' => 'HTTP' }]
+  end
 
   def setup_env_vars(elb_name)
     ENV['AWS_ELB_NAME']   = elb_name
